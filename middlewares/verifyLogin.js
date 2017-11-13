@@ -6,7 +6,7 @@ let isLogin = (req, res, next) =>{
   let token = req.headers.token
   // verify a token symmetric
   console.log(token)
-  jwt.verify(token, process.env.SECRET_KEY, function(err, decoded) {
+  jwt.verify(token, 'inirahasiamu', function(err, decoded) {
     if(!err){
       req.decoded = decoded
       next()
