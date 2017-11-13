@@ -6,13 +6,13 @@ REST API, documentation with markdown, securing API with JWT Demo app with basic
 List of basic routes:
 
 | Route                  | HTTP          | Description          |
-| ----------------------:|:-------------:| --------------------:|
-|`/api/hello?name={name}`| GET           | Print hello , {name} |
+| -----------------------|:-------------:| --------------------|
+|`/api/hello?name={name}`| GET           | Print hello , `{name}`|
 
 List of user routes:
 
 | Route               | HTTP          | Description      |
-| -------------------:|:-------------:|:-----------------|
+|:--------------------|:-------------:|:----------------|
 | `/api/signup`       |POST           | Sign up with new user info|
 | `/api/signin`       |POST           | Sign in with avaliable user info|
 | `/api/users`        |GET            | Get all the users|
@@ -24,7 +24,17 @@ List of user routes:
 List of filter routes:
 
 | Route                      | HTTP         | Description      |
-| --------------------------:|:------------:|:-----------------|
+| :--------------------------|:------------:|:----------------|
 | `/api/users?name="{name}"` |GET           | Get `{name}` match in users|
 | `/api/users?name="{na}"`   |GET           | Get `{na}` like in users|
 
+## Usage
+with only npm :
+```
+$ sequelize db:migrate
+$ npm install
+$ npm start
+$ npm run dev
+```
+
+Access the website via `http://localhost:3000/`
