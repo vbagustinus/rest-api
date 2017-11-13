@@ -24,4 +24,4 @@ $ npm start
 $ npm run dev
 ```
 
-Access the website via `http://localhost:3000/`
+Access the website via `http://localhost:3000/` or via heroku `https://agustinus-restapi.herokuapp.com/` username: `agustinus`, password: `albert`
