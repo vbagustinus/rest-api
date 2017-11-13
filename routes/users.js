@@ -11,5 +11,5 @@ router.delete('/users/:id', verifyLogin.isLogin, verifyLogin.isAdmin, User.delet
 router.put('/users/:id', verifyLogin.isLogin, User.updateUser);
 router.post('/signin', User.signinUser);
 router.post('/signup', User.signupUser);
-
+  
 module.exports = router;

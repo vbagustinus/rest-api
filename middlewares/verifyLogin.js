@@ -2,8 +2,10 @@ require('dotenv').config()
 var jwt = require('jsonwebtoken');
 
 let isLogin = (req, res, next) =>{
-  let token = req.header.dataToken
+
+  let token = req.headers.token
   // verify a token symmetric
+  console.log(token)
   jwt.verify(token, process.env.SECRET_KEY, function(err, decoded) {
     if(!err){
       req.decoded = decoded

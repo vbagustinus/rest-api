@@ -126,8 +126,14 @@ let signinUser = (req, res) =>{
             name: user.getFullName(),
             isadmin: user.isadmin
           }, process.env.SECRET_KEY,(err, token) => {
-            req.header.dataToken = token
-            res.send('Kamu Berhasil masuk')
+            if(!err){
+              res.send({
+                token: token,
+                message: 'Kamu Berhasil masuk'
+              })
+            } else{
+              res.send(err)
+            }
           });
         } else{
           res.status(401).send('Password atau username salah')
