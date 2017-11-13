@@ -125,7 +125,7 @@ let signinUser = (req, res) =>{
             id: user.id,
             name: user.getFullName(),
             isadmin: user.isadmin
-          }, 'inirahasiamu',(err, token) => {
+          }, process.env.SECRET_KEY,(err, token) => {
             if(!err){
               res.send({
                 token: token,
