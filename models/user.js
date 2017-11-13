@@ -5,7 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     last_name: DataTypes.STRING,
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    isadmin: DataTypes.BOOLEAN
+    isadmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   });
+  User.prototype.getFullName = function () {
+    return this.first_name + ' ' +this.last_name
+  }
   return User;
 };

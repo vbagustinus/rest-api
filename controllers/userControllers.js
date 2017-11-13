@@ -1,5 +1,7 @@
 const User = require('../models').User
 const bcrypt = require('bcrypt');
+require('dotenv').config()
+var jwt = require('jsonwebtoken');
 
 let getAllUsers = (req, res) => {
   User.findAll()
@@ -20,6 +22,27 @@ let getUserById = (req, res) =>{
   .catch(err=>{
     res.send(err)
   })
+}
+
+let signupUser = (req, res) =>{
+  let input = req.body
+  const saltRounds = 10;
+  bcrypt.hash(input.password, saltRounds).then(function(hash) {
+    User.create(
+      {
+        first_name : input.first_name,
+        last_name : input.last_name,
+        username : input.username,
+        password : hash,
+        isadmin : false
+      })
+      .then(()=>{
+        res.send('data Pendaftar Tersimpan')
+      })
+      .catch(err=>{
+        res.send(err)
+      })
+  });
 }
 
 let createUser = (req, res) =>{
@@ -90,21 +113,32 @@ let signinUser = (req, res) =>{
     where: {
       username: signin.username
     }
-  }).then((user) => {
+  })
+  .then((user) => {
     if(user){
       bcrypt.compare(signin.password, user.password)
       .then((result) => {
         if(result) {
-          res.send('Password Benar')
-        }else{
-          res.send('Password atau username salah')
+          // sign asynchronously
+          jwt.sign(
+          { 
+            id: user.id,
+            name: user.getFullName(),
+            isadmin: user.isadmin
+          }, process.env.SECRET_KEY,(err, token) => {
+            req.header.dataToken = token
+            res.send('Kamu Berhasil masuk')
+          });
+        } else{
+          res.status(401).send('Password atau username salah')
         }
       })
-    }else{
-      res.send('Password atau username salah')
+    } else{
+      res.status(401).send('Password atau username salah')
     }
   })
   .catch(err=>{
+    console.log(err)
     res.send(err)
   })
 }
@@ -116,5 +150,6 @@ module.exports = {
   createUser,
   deleteUser,
   updateUser,
-  signinUser
+  signinUser,
+  signupUser
 }
